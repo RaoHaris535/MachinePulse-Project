@@ -1,0 +1,48 @@
+schema: '2.0'
+stages:
+  ingest:
+    cmd: python -m machinepulse.data.ingest --config configs/data.yaml
+    deps:
+    - path: configs/data.yaml
+      hash: md5
+      md5: 609b71a819d25b87d038e168106995e2
+      size: 1411
+    - path: src/machinepulse/config.py
+      hash: md5
+      md5: b4aa8a690467be3ecfe2ecc506d5e77e
+      size: 545
+    - path: src/machinepulse/data/ingest.py
+      hash: md5
+      md5: 9f912a5d5467f6f5010289b416a8e6c7
+      size: 5736
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: 9be7fbe324c3af697bc520ae912b3176.dir
+      size: 218300918
+      nfiles: 2
+  validate:
+    cmd: python -m machinepulse.data.validate --config configs/data.yaml
+    deps:
+    - path: configs/data.yaml
+      hash: md5
+      md5: 609b71a819d25b87d038e168106995e2
+      size: 1411
+    - path: data/raw
+      hash: md5
+      md5: 9be7fbe324c3af697bc520ae912b3176.dir
+      size: 218300918
+      nfiles: 2
+    - path: src/machinepulse/config.py
+      hash: md5
+      md5: b4aa8a690467be3ecfe2ecc506d5e77e
+      size: 545
+    - path: src/machinepulse/data/validate.py
+      hash: md5
+      md5: 874bd24c63322d012f86953f0526298c
+      size: 9241
+    outs:
+    - path: reports/metrics/data_validation.json
+      hash: md5
+      md5: 67d07f249cc7c9da95e88272e00ab57f
+      size: 3770

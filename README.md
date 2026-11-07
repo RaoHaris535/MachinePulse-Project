@@ -26,8 +26,9 @@ retraining are intentionally deferred to later phases.
 
 ## Project status
 
-The repository structure and Python environment are initialized. Data and
-model pipeline stages will be added incrementally in subsequent milestones.
+The repository structure, Python environment, and raw-data ingestion and
+validation code are implemented. Preprocessing and model stages will be added
+incrementally in subsequent milestones.
 
 ## Prerequisites
 
@@ -59,8 +60,25 @@ python -c "import machinepulse; print(machinepulse.__version__)"
 pytest
 ```
 
-Pipeline commands will be documented as their corresponding stages are
-implemented.
+## Raw-data ingestion and validation
+
+The ingestion command streams the official UCI ZIP archive, extracts only the
+configured MetroPT-3 CSV, and records SHA-256 hashes in a deterministic source
+manifest. Re-running it skips a verified local copy unless `--force` is used.
+
+```bash
+python -m machinepulse.data.ingest --config configs/data.yaml
+python -m machinepulse.data.validate --config configs/data.yaml
+```
+
+Validation reads the large CSV in chunks and checks its schema, expected row
+count, missing and non-numeric values, timestamp ordering, duplicate
+timestamps, finite values, physical sensor ranges, and binary signal domains.
+It writes `reports/metrics/data_validation.json` and exits non-zero when a
+check fails.
+
+Once DVC is initialized, these commands become the `ingest` and `validate`
+pipeline stages. Additional stages will be documented as they are implemented.
 
 ## Repository structure
 

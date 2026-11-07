@@ -1,0 +1,18 @@
+stages:
+  ingest:
+    cmd: python -m machinepulse.data.ingest --config configs/data.yaml
+    deps:
+    - configs/data.yaml
+    - src/machinepulse/config.py
+    - src/machinepulse/data/ingest.py
+    outs:
+    - data/raw
+  validate:
+    cmd: python -m machinepulse.data.validate --config configs/data.yaml
+    deps:
+    - configs/data.yaml
+    - data/raw
+    - src/machinepulse/config.py
+    - src/machinepulse/data/validate.py
+    outs:
+    - reports/metrics/data_validation.json

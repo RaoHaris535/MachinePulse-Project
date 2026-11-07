@@ -1,0 +1,68 @@
+source:
+  url: https://archive.ics.uci.edu/static/public/791/metropt+3+dataset.zip
+  archive_member: MetroPT3(AirCompressor).csv
+  raw_path: data/raw/MetroPT3(AirCompressor).csv
+  manifest_path: data/raw/manifest.json
+  request_timeout_seconds: 120
+  download_chunk_bytes: 1048576
+
+validation:
+  timestamp_column: timestamp
+  timestamp_format: "%Y-%m-%d %H:%M:%S"
+  chunk_rows: 100000
+  expected_rows:
+    min: 1500000
+    max: 1520000
+  optional_index_columns:
+    - index
+    - "Unnamed: 0"
+  required_columns:
+    - timestamp
+    - TP2
+    - TP3
+    - H1
+    - DV_pressure
+    - Reservoirs
+    - Oil_temperature
+    - Motor_current
+    - COMP
+    - DV_eletric
+    - Towers
+    - MPG
+    - LPS
+    - Pressure_switch
+    - Oil_level
+    - Caudal_impulses
+  numeric_columns:
+    - TP2
+    - TP3
+    - H1
+    - DV_pressure
+    - Reservoirs
+    - Oil_temperature
+    - Motor_current
+    - COMP
+    - DV_eletric
+    - Towers
+    - MPG
+    - LPS
+    - Pressure_switch
+    - Oil_level
+    - Caudal_impulses
+  ranges:
+    TP2: {min: -1.0, max: 20.0}
+    TP3: {min: -1.0, max: 20.0}
+    H1: {min: -1.0, max: 20.0}
+    DV_pressure: {min: -1.0, max: 20.0}
+    Reservoirs: {min: -1.0, max: 20.0}
+    Oil_temperature: {min: 0.0, max: 150.0}
+    Motor_current: {min: -1.0, max: 50.0}
+  binary_columns:
+    - COMP
+    - DV_eletric
+    - Towers
+    - MPG
+    - LPS
+    - Pressure_switch
+    - Oil_level
+    - Caudal_impulses
