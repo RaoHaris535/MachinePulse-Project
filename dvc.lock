@@ -46,3 +46,63 @@ stages:
       hash: md5
       md5: 67d07f249cc7c9da95e88272e00ab57f
       size: 3770
+  preprocess:
+    cmd: python -m machinepulse.data.preprocess --config configs/preprocess.yaml
+    deps:
+    - path: configs/preprocess.yaml
+      hash: md5
+      md5: 47cd88c2dd5cecf5eae880f4d3508817
+      size: 1324
+    - path: data/raw
+      hash: md5
+      md5: 9be7fbe324c3af697bc520ae912b3176.dir
+      size: 218300918
+      nfiles: 2
+    - path: src/machinepulse/config.py
+      hash: md5
+      md5: b4aa8a690467be3ecfe2ecc506d5e77e
+      size: 545
+    - path: src/machinepulse/data/preprocess.py
+      hash: md5
+      md5: 3c6964367d2087d043a86ce3318e3bc4
+      size: 7378
+    outs:
+    - path: data/processed/tabular
+      hash: md5
+      md5: 260c9bec98fac1ab1ce59080aa45d01c.dir
+      size: 1830405
+      nfiles: 5
+    - path: reports/metrics/preprocessing.json
+      hash: md5
+      md5: bde6ae27256ab238acaf94a7d5d143c7
+      size: 2163
+  sequences:
+    cmd: python -m machinepulse.data.sequences --config configs/preprocess.yaml
+    deps:
+    - path: configs/preprocess.yaml
+      hash: md5
+      md5: 47cd88c2dd5cecf5eae880f4d3508817
+      size: 1324
+    - path: data/processed/tabular
+      hash: md5
+      md5: 260c9bec98fac1ab1ce59080aa45d01c.dir
+      size: 1830405
+      nfiles: 5
+    - path: src/machinepulse/config.py
+      hash: md5
+      md5: b4aa8a690467be3ecfe2ecc506d5e77e
+      size: 545
+    - path: src/machinepulse/data/sequences.py
+      hash: md5
+      md5: b5b8de4cfdee8bf3b58d2165788f6883
+      size: 5802
+    outs:
+    - path: data/processed/sequences
+      hash: md5
+      md5: 26ecd7a003f64d79a5e007ac06cf6f83.dir
+      size: 1773494
+      nfiles: 4
+    - path: reports/metrics/sequences.json
+      hash: md5
+      md5: 75caee0276f4dbe27520ad9256c3a9fc
+      size: 983

@@ -26,9 +26,10 @@ retraining are intentionally deferred to later phases.
 
 ## Project status
 
-The repository structure, Python environment, and raw-data ingestion and
-validation code are implemented. Preprocessing and model stages will be added
-incrementally in subsequent milestones.
+The repository structure, Python environment, raw-data ingestion, validation,
+failure-window labeling, chronological preprocessing, and sequence generation
+are implemented. Model stages will be added incrementally in subsequent
+milestones.
 
 ## Prerequisites
 
@@ -79,6 +80,23 @@ check fails.
 
 Once DVC is initialized, these commands become the `ingest` and `validate`
 pipeline stages. Additional stages will be documented as they are implemented.
+
+## Preprocessing and sequences
+
+The preprocessing stage aggregates the original 10-second observations into
+5-minute intervals. It derives active-failure labels from the four published
+MetroPT-3 failure windows and adds a one-hour pre-failure warning target. Data
+is split chronologically so that training contains the first two incidents,
+validation contains the third, and testing contains the fourth.
+
+```bash
+python -m machinepulse.data.preprocess --config configs/preprocess.yaml
+python -m machinepulse.data.sequences --config configs/preprocess.yaml
+```
+
+The analog-feature scaler is fitted only on normal training rows. LSTM inputs
+contain twelve 5-minute observations (one hour), never cross missing-time gaps,
+and exclude every warning/failure window from autoencoder training data.
 
 ## Repository structure
 
