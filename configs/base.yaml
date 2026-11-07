@@ -1,0 +1,11 @@
+project:
+  name: machinepulse
+  random_seed: 42
+
+paths:
+  raw_data: data/raw
+  interim_data: data/interim
+  processed_data: data/processed
+  models: models
+  metrics: reports/metrics
+  figures: reports/figures

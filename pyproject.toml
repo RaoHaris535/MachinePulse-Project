@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "machinepulse"
+version = "0.1.0"
+description = "Reproducible predictive maintenance on the MetroPT-3 time-series dataset"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "dagshub>=0.6,<1",
+    "dvc[s3]>=3.60,<4",
+    "joblib>=1.4,<2",
+    "matplotlib>=3.9,<4",
+    "mlflow>=3.6,<4",
+    "numpy>=1.26,<3",
+    "pandas>=2.2,<3",
+    "pyyaml>=6,<7",
+    "requests>=2.32,<3",
+    "scikit-learn>=1.5,<2",
+    "torch>=2.5,<3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3,<10",
+    "ruff>=0.9,<1",
+]
+
+# Use CPU-only PyTorch wheels for a portable local training environment and to
+# avoid downloading unused CUDA runtimes.
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/machinepulse"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

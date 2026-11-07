@@ -1,0 +1,52 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments and local Python tooling
+.venv/
+venv/
+.uv/
+
+# Secrets and machine-specific configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# IDE and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# DVC local cache and temporary files
+.dvc/cache/
+.dvc/tmp/
+
+# Data and generated model artifacts (managed by DVC/MLflow)
+data/**
+!data/.gitkeep
+models/**
+!models/.gitkeep
+artifacts/**
+!artifacts/.gitkeep
+
+# Experiment outputs
+mlruns/
+mlartifacts/
+reports/figures/**
+!reports/figures/.gitkeep
+reports/metrics/**
+!reports/metrics/.gitkeep
+
+# Build and packaging outputs
+build/
+dist/
+*.egg-info/
