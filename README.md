@@ -27,9 +27,9 @@ retraining are intentionally deferred to later phases.
 ## Project status
 
 The repository structure, Python environment, raw-data ingestion, validation,
-failure-window labeling, chronological preprocessing, and sequence generation
-are implemented. Model stages will be added incrementally in subsequent
-milestones.
+failure-window labeling, chronological preprocessing, sequence generation, and
+Logistic Regression baseline are implemented. The LSTM Autoencoder stage will
+be added in the next model milestone.
 
 ## Prerequisites
 
@@ -97,6 +97,23 @@ python -m machinepulse.data.sequences --config configs/preprocess.yaml
 The analog-feature scaler is fitted only on normal training rows. LSTM inputs
 contain twelve 5-minute observations (one hour), never cross missing-time gaps,
 and exclude every warning/failure window from autoencoder training data.
+
+## Logistic Regression baseline
+
+The class-balanced baseline trains on the tabular training split and selects a
+decision threshold using validation F1. It reports accuracy, balanced accuracy,
+precision, recall, specificity, F1, ROC-AUC, and average precision on validation
+and test data.
+
+```bash
+python -m machinepulse.models.baseline \
+  --config configs/models.yaml \
+  --tracking-config configs/tracking.yaml
+```
+
+The run is logged to the remote `machinepulse-phase1` experiment on DagsHub,
+including hyperparameters, metrics, the serialized scikit-learn model,
+coefficients, confusion matrices, and ROC/precision-recall curves.
 
 ## Repository structure
 

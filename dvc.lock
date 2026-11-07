@@ -106,3 +106,51 @@ stages:
       hash: md5
       md5: 75caee0276f4dbe27520ad9256c3a9fc
       size: 983
+  baseline:
+    cmd: python -m machinepulse.models.baseline --config configs/models.yaml 
+      --tracking-config configs/tracking.yaml
+    deps:
+    - path: configs/models.yaml
+      hash: md5
+      md5: 531dd8f0f6660b5c084ab12bcffeeaf5
+      size: 548
+    - path: configs/tracking.yaml
+      hash: md5
+      md5: c0aae5720296e69e9928a47dbbed6f16
+      size: 329
+    - path: data/processed/tabular
+      hash: md5
+      md5: 260c9bec98fac1ab1ce59080aa45d01c.dir
+      size: 1830405
+      nfiles: 5
+    - path: src/machinepulse/config.py
+      hash: md5
+      md5: b4aa8a690467be3ecfe2ecc506d5e77e
+      size: 545
+    - path: src/machinepulse/models/baseline.py
+      hash: md5
+      md5: 6ff4532cbf1e7993653b60c6afd253c2
+      size: 7817
+    - path: src/machinepulse/models/evaluation.py
+      hash: md5
+      md5: 404dcb2f2c38a1e4931d4b2eaae4082c
+      size: 2559
+    - path: src/machinepulse/tracking.py
+      hash: md5
+      md5: ee7f3ad0cf96a5840c085829fe4b2a96
+      size: 635
+    outs:
+    - path: models/baseline
+      hash: md5
+      md5: 873e5d3fdb3e0be89425ce5a0ac441c6.dir
+      size: 1207
+      nfiles: 1
+    - path: reports/figures/baseline
+      hash: md5
+      md5: 86ca4b2058aa885596a0ff3370891401.dir
+      size: 132826
+      nfiles: 3
+    - path: reports/metrics/baseline.json
+      hash: md5
+      md5: 302fea71d6a8cbdb55aa419cfc0d133d
+      size: 1491

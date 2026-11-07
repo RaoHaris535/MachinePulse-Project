@@ -36,3 +36,19 @@ stages:
     outs:
     - data/processed/sequences
     - reports/metrics/sequences.json
+  baseline:
+    cmd: python -m machinepulse.models.baseline --config configs/models.yaml 
+      --tracking-config configs/tracking.yaml
+    deps:
+    - configs/models.yaml
+    - configs/tracking.yaml
+    - data/processed/tabular
+    - src/machinepulse/config.py
+    - src/machinepulse/models/baseline.py
+    - src/machinepulse/models/evaluation.py
+    - src/machinepulse/tracking.py
+    outs:
+    - models/baseline
+    - reports/figures/baseline
+    metrics:
+    - reports/metrics/baseline.json

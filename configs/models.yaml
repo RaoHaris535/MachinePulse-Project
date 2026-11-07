@@ -1,0 +1,27 @@
+baseline:
+  input_dir: data/processed/tabular
+  model_dir: models/baseline
+  figure_dir: reports/figures/baseline
+  metrics_path: reports/metrics/baseline.json
+  model_filename: logistic_regression.joblib
+  random_seed: 42
+  max_iter: 1000
+  solver: liblinear
+  class_weight: balanced
+  regularization_c: 1.0
+  features:
+    - TP2
+    - TP3
+    - H1
+    - DV_pressure
+    - Reservoirs
+    - Oil_temperature
+    - Motor_current
+    - COMP
+    - DV_eletric
+    - Towers
+    - MPG
+    - LPS
+    - Pressure_switch
+    - Oil_level
+    - Caudal_impulses

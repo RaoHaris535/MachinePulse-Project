@@ -1,0 +1,8 @@
+tracking:
+  repo_owner: RaoHaris535
+  repo_name: MachinePulse-Project
+  tracking_uri: https://dagshub.com/RaoHaris535/MachinePulse-Project.mlflow
+  experiment_name: machinepulse-phase1
+  baseline_run_name: logistic-regression-baseline
+  lstm_run_name: lstm-autoencoder-main
+  registered_model_name: MachinePulse-LSTM-Autoencoder
