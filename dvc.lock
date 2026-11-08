@@ -155,8 +155,8 @@ stages:
       md5: 302fea71d6a8cbdb55aa419cfc0d133d
       size: 1491
   lstm_autoencoder:
-    cmd: python -m machinepulse.models.lstm_autoencoder --config 
-      configs/models.yaml --tracking-config configs/tracking.yaml
+    cmd: python -m machinepulse.models.lstm_autoencoder --config configs/models.yaml
+      --tracking-config configs/tracking.yaml
     deps:
     - path: configs/models.yaml
       hash: md5
