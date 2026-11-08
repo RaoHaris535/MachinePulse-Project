@@ -4,6 +4,9 @@ This directory contains the evidence used in the MachinePulse Phase 1 report.
 The screenshots were captured from the remote DagsHub MLflow server and from
 the repository's live DVC pipeline on 2026-11-08.
 
+The submission document is `MachinePulse-Phase1-Report.pdf`. It is generated
+reproducibly by `scripts/build_phase1_report.py` and contains four pages.
+
 ## Links
 
 - GitHub repository: https://github.com/RaoHaris535/MachinePulse-Project

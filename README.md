@@ -199,6 +199,11 @@ F1 shows that calibration does not transfer cleanly between failure periods.
 This is retained as an honest Phase 1 limitation rather than tuning on the
 held-out test set.
 
+## Phase 1 submission
+
+- [Four-page implementation report](docs/submission/MachinePulse-Phase1-Report.pdf)
+- [Submission evidence and direct tracking links](docs/submission/README.md)
+
 ## Repository structure
 
 ```text
