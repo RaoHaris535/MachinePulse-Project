@@ -181,7 +181,7 @@ def train_baseline(
             mlflow.log_artifact(coefficients_path, artifact_path="evaluation")
             mlflow.log_artifact(confusion_path, artifact_path="evaluation")
             mlflow.log_artifact(curves_path, artifact_path="evaluation")
-            mlflow.sklearn.log_model(model, artifact_path="model")
+            mlflow.sklearn.log_model(model, name="model")
             print(f"Logged baseline MLflow run {run.info.run_id} to {tracking_uri}")
 
     print(

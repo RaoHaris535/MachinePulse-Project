@@ -6,10 +6,14 @@ sensor dataset. Phase 1 focuses on a local, end-to-end machine learning
 pipeline with DVC data versioning and remote MLflow experiment tracking on
 DagsHub.
 
-The planned modeling workflow compares a Logistic Regression failure-window
+The modeling workflow compares a Logistic Regression failure-window
 baseline with a PyTorch LSTM Autoencoder for multivariate time-series anomaly
 detection. Failure labels used for evaluation will be derived from the event
 intervals published with the otherwise unlabeled dataset.
+
+- **GitHub:** https://github.com/RaoHaris535/MachinePulse-Project
+- **DagsHub repository:** https://dagshub.com/RaoHaris535/MachinePulse-Project
+- **Remote MLflow:** https://dagshub.com/RaoHaris535/MachinePulse-Project.mlflow
 
 ## Phase 1 scope
 
@@ -51,8 +55,20 @@ source .venv/bin/activate
 cp .env.example .env
 ```
 
-Update `.env` with your DagsHub repository details. Never commit `.env` or an
-access token.
+Never commit `.env` or an access token. Authenticate the DagsHub client, then
+store DVC credentials only in the Git-ignored `.dvc/config.local` file:
+
+```bash
+dagshub login
+dvc remote modify --local origin access_key_id RaoHaris535
+dvc remote modify --local origin secret_access_key YOUR_DAGSHUB_TOKEN
+```
+
+On a fresh clone, restore all versioned pipeline artifacts with:
+
+```bash
+dvc pull
+```
 
 Verify the environment:
 
@@ -79,8 +95,9 @@ timestamps, finite values, physical sensor ranges, and binary signal domains.
 It writes `reports/metrics/data_validation.json` and exits non-zero when a
 check fails.
 
-Once DVC is initialized, these commands become the `ingest` and `validate`
-pipeline stages. Additional stages will be documented as they are implemented.
+These commands are the `ingest` and `validate` stages. Validation is a hard
+dependency of preprocessing, so training cannot start when schema, null,
+range, timestamp, or row-count checks fail.
 
 ## Preprocessing and sequences
 
@@ -134,6 +151,54 @@ weights, score distributions, confusion matrices, and ROC/precision-recall
 curves are logged as artifacts. The resulting model version is registered as
 `MachinePulse-LSTM-Autoencoder` and transitioned to Staging.
 
+## Run the complete DVC pipeline
+
+Run every required Phase 1 stage with one command:
+
+```bash
+dvc repro
+```
+
+DVC skips unchanged stages using `dvc.lock`. To deliberately execute every
+stage again, use `dvc repro --force`. Inspect the pipeline and metrics with:
+
+```bash
+dvc dag
+dvc metrics show
+dvc status
+dvc status -c
+```
+
+The pipeline order is:
+
+```text
+ingest -> validate -> preprocess -> baseline
+                              \-> sequences -> lstm_autoencoder
+```
+
+Push DVC-managed data, models, figures, and metric reports to the configured
+DagsHub remote after a successful run:
+
+```bash
+dvc push
+```
+
+## Phase 1 results
+
+The held-out test period contains a later failure incident and exhibits strong
+temporal distribution shift. The validation-selected operating thresholds are
+therefore reported together with threshold-independent ranking metrics.
+
+| Model | Test F1 | Test ROC-AUC | Test average precision |
+|---|---:|---:|---:|
+| Logistic Regression baseline | 0.0000 | 0.0249 | 0.0023 |
+| LSTM Autoencoder | 0.0110 | 0.9825 | 0.2787 |
+
+The LSTM substantially improves anomaly ranking, while its low fixed-threshold
+F1 shows that calibration does not transfer cleanly between failure periods.
+This is retained as an honest Phase 1 limitation rather than tuning on the
+held-out test set.
+
 ## Repository structure
 
 ```text
@@ -144,6 +209,8 @@ MachinePulse_Project/
 ├── reports/             # Generated metrics and figures
 ├── src/machinepulse/    # Application and ML pipeline source code
 ├── tests/               # Automated tests
+├── dvc.yaml             # Named end-to-end pipeline stages
+├── dvc.lock             # Reproducible dependency and output hashes
 ├── .env.example         # Safe environment-variable template
 ├── .gitignore
 ├── .python-version
@@ -155,8 +222,8 @@ MachinePulse_Project/
 - Raw data, processed data, model weights, credentials, and local MLflow files
   are excluded from Git.
 - Random seeds and pipeline parameters live in versioned configuration files.
-- Data and generated pipeline outputs will be tracked with DVC.
-- Experiments and registered models will be stored on the remote DagsHub
+- Data and generated pipeline outputs are tracked with DVC.
+- Experiments and the registered model are stored on the remote DagsHub
   MLflow server.
 
 ## Team contributions

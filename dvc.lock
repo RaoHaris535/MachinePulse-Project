@@ -58,6 +58,10 @@ stages:
       md5: 9be7fbe324c3af697bc520ae912b3176.dir
       size: 218300918
       nfiles: 2
+    - path: reports/metrics/data_validation.json
+      hash: md5
+      md5: 67d07f249cc7c9da95e88272e00ab57f
+      size: 3770
     - path: src/machinepulse/config.py
       hash: md5
       md5: b4aa8a690467be3ecfe2ecc506d5e77e
@@ -112,8 +116,8 @@ stages:
     deps:
     - path: configs/models.yaml
       hash: md5
-      md5: 531dd8f0f6660b5c084ab12bcffeeaf5
-      size: 548
+      md5: f19cc314b399b8bc9dc6719d6d8c648b
+      size: 1040
     - path: configs/tracking.yaml
       hash: md5
       md5: c0aae5720296e69e9928a47dbbed6f16
@@ -129,8 +133,8 @@ stages:
       size: 545
     - path: src/machinepulse/models/baseline.py
       hash: md5
-      md5: 6ff4532cbf1e7993653b60c6afd253c2
-      size: 7817
+      md5: d45bab85c1bf26a460a47edb016bca94
+      size: 7808
     - path: src/machinepulse/models/evaluation.py
       hash: md5
       md5: 404dcb2f2c38a1e4931d4b2eaae4082c

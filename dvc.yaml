@@ -14,17 +14,19 @@ stages:
     - data/raw
     - src/machinepulse/config.py
     - src/machinepulse/data/validate.py
-    outs:
+    metrics:
     - reports/metrics/data_validation.json
   preprocess:
     cmd: python -m machinepulse.data.preprocess --config configs/preprocess.yaml
     deps:
     - configs/preprocess.yaml
     - data/raw
+    - reports/metrics/data_validation.json
     - src/machinepulse/config.py
     - src/machinepulse/data/preprocess.py
     outs:
     - data/processed/tabular
+    metrics:
     - reports/metrics/preprocessing.json
   sequences:
     cmd: python -m machinepulse.data.sequences --config configs/preprocess.yaml
@@ -35,9 +37,10 @@ stages:
     - src/machinepulse/data/sequences.py
     outs:
     - data/processed/sequences
+    metrics:
     - reports/metrics/sequences.json
   baseline:
-    cmd: python -m machinepulse.models.baseline --config configs/models.yaml 
+    cmd: python -m machinepulse.models.baseline --config configs/models.yaml
       --tracking-config configs/tracking.yaml
     deps:
     - configs/models.yaml
