@@ -154,3 +154,51 @@ stages:
       hash: md5
       md5: 302fea71d6a8cbdb55aa419cfc0d133d
       size: 1491
+  lstm_autoencoder:
+    cmd: python -m machinepulse.models.lstm_autoencoder --config 
+      configs/models.yaml --tracking-config configs/tracking.yaml
+    deps:
+    - path: configs/models.yaml
+      hash: md5
+      md5: f19cc314b399b8bc9dc6719d6d8c648b
+      size: 1040
+    - path: configs/tracking.yaml
+      hash: md5
+      md5: c0aae5720296e69e9928a47dbbed6f16
+      size: 329
+    - path: data/processed/sequences
+      hash: md5
+      md5: 26ecd7a003f64d79a5e007ac06cf6f83.dir
+      size: 1773494
+      nfiles: 4
+    - path: src/machinepulse/config.py
+      hash: md5
+      md5: b4aa8a690467be3ecfe2ecc506d5e77e
+      size: 545
+    - path: src/machinepulse/models/evaluation.py
+      hash: md5
+      md5: 404dcb2f2c38a1e4931d4b2eaae4082c
+      size: 2559
+    - path: src/machinepulse/models/lstm_autoencoder.py
+      hash: md5
+      md5: a7d2da72dfcf628c29da3f1332710b50
+      size: 19037
+    - path: src/machinepulse/tracking.py
+      hash: md5
+      md5: ee7f3ad0cf96a5840c085829fe4b2a96
+      size: 635
+    outs:
+    - path: models/lstm_autoencoder
+      hash: md5
+      md5: 6e91c5ac0ff48bdd94f1c4aca38a5775.dir
+      size: 71252
+      nfiles: 2
+    - path: reports/figures/lstm_autoencoder
+      hash: md5
+      md5: 2d6f26850988fcc0e965ff0c793bc31e.dir
+      size: 265843
+      nfiles: 4
+    - path: reports/metrics/lstm_autoencoder.json
+      hash: md5
+      md5: 0b3903f55eb8aa7eb74d0f377cc8ae53
+      size: 1604

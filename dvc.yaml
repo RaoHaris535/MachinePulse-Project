@@ -52,3 +52,19 @@ stages:
     - reports/figures/baseline
     metrics:
     - reports/metrics/baseline.json
+  lstm_autoencoder:
+    cmd: python -m machinepulse.models.lstm_autoencoder --config configs/models.yaml
+      --tracking-config configs/tracking.yaml
+    deps:
+    - configs/models.yaml
+    - configs/tracking.yaml
+    - data/processed/sequences
+    - src/machinepulse/config.py
+    - src/machinepulse/models/evaluation.py
+    - src/machinepulse/models/lstm_autoencoder.py
+    - src/machinepulse/tracking.py
+    outs:
+    - models/lstm_autoencoder
+    - reports/figures/lstm_autoencoder
+    metrics:
+    - reports/metrics/lstm_autoencoder.json

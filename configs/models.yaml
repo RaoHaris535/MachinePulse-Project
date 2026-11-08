@@ -25,3 +25,23 @@ baseline:
     - Pressure_switch
     - Oil_level
     - Caudal_impulses
+
+lstm_autoencoder:
+  input_dir: data/processed/sequences
+  model_dir: models/lstm_autoencoder
+  figure_dir: reports/figures/lstm_autoencoder
+  metrics_path: reports/metrics/lstm_autoencoder.json
+  model_filename: lstm_autoencoder.pt
+  random_seed: 42
+  device: cpu
+  num_threads: 4
+  hidden_size: 32
+  latent_size: 16
+  num_layers: 1
+  dropout: 0.0
+  batch_size: 256
+  epochs: 12
+  learning_rate: 0.001
+  weight_decay: 0.00001
+  early_stopping_patience: 3
+  early_stopping_min_delta: 0.00001

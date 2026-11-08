@@ -27,9 +27,10 @@ retraining are intentionally deferred to later phases.
 ## Project status
 
 The repository structure, Python environment, raw-data ingestion, validation,
-failure-window labeling, chronological preprocessing, sequence generation, and
-Logistic Regression baseline are implemented. The LSTM Autoencoder stage will
-be added in the next model milestone.
+failure-window labeling, chronological preprocessing, sequence generation,
+Logistic Regression baseline, and LSTM Autoencoder are implemented. Both model
+runs are tracked remotely with MLflow, and the main model is registered in
+Staging.
 
 ## Prerequisites
 
@@ -114,6 +115,24 @@ python -m machinepulse.models.baseline \
 The run is logged to the remote `machinepulse-phase1` experiment on DagsHub,
 including hyperparameters, metrics, the serialized scikit-learn model,
 coefficients, confusion matrices, and ROC/precision-recall curves.
+
+## LSTM Autoencoder main model
+
+The main model learns to reconstruct normal one-hour sensor sequences. Mean
+squared reconstruction error is used as the anomaly score, and its operating
+threshold is selected using validation F1 before a single evaluation on the
+held-out test period.
+
+```bash
+python -m machinepulse.models.lstm_autoencoder \
+  --config configs/models.yaml \
+  --tracking-config configs/tracking.yaml
+```
+
+Training and validation loss are logged for every epoch. Final metrics, model
+weights, score distributions, confusion matrices, and ROC/precision-recall
+curves are logged as artifacts. The resulting model version is registered as
+`MachinePulse-LSTM-Autoencoder` and transitioned to Staging.
 
 ## Repository structure
 
